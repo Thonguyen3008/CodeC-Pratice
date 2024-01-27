@@ -1,53 +1,126 @@
 ﻿// See https://aka.ms/new-console-template for more information
+// See https://aka.ms/new-console-template for more information
 using System;
+using System.Security.Permissions;
+using System.Xml;
+using MainData;
 
-namespace dahinhtronglop{
-    class Shape{
-        protected int height, width;
-        public Shape (int a=0, int b=0){
-            width=a;
-            height=b;
-        }
-        public virtual int Area(){
-            Console.WriteLine("Parent class area:");
-            return 0;
-        }
-    }
-    class Retangle: Shape{
-        public Retangle (int a=0, int b=0): base(a,b){
-
-        }
-        public override int Area()
+namespace MainData{
+    public class Student{
+        private string name ="Not Assigned";
+         private string code="Not Assigned";
+          private int age =0;
+          public Student(string name="", string code="", int age=0){
+            this.name=name;
+            this.code=code;
+            this.age=age;
+          }
+          public void DisplayInfo(){
+            Console.WriteLine("Code= {0}, name={1}, Age={2}", code, name, age);
+          }
+        public override string ToString()
         {
-            Console.WriteLine(" Retangle class area:");
-            return (width*height);
+            return "Code = " + code + ",Name = "+ name +", Age = "+ age ;
+            
+       }
+       public class NegativeNumException:Exception{
+        public NegativeNumException(){}
+        public NegativeNumException(string message): base(message){}
+       }
+        public void InputInfo(){
+            Console.WriteLine("Input Student Name:");
+            name= Console.ReadLine();
+            Console.WriteLine("Input Student Code:");
+            code= Console.ReadLine();
+            Console.WriteLine("Input Student Age:");
+            string str= Console.ReadLine();
+            try{
+                 age= int.Parse(str);
+                 if(age<=0){
+                    throw new NegativeNumException();
+                 }
+            }
+            catch(FormatException){
+                Console.WriteLine("Not input a Numver. Please reinput a number:");
+                str = Console.ReadLine();
+                age= int.Parse(str);
+            }
+            catch(NegativeNumException){
+                Console.WriteLine("Negative Age is not accepted. Please Reinput a number:");
+                str=Console.ReadLine();
+                age=int.Parse(str);
+            }
+           
         }
-    }
-    class Triangle: Shape{
-         public Triangle (int a=0, int b=0): base(a,b){
+}
+    public class Lecturer{
+        private string name= "Not Assignment";
+        private string code=" Not Assignment";
+        private int age= 0;
+        public Lecturer(string name="", string code= "", int age=0){
+            this.name=name;
+            this.code=code;
+            this.age= age;
+        }
+        public void DisplayInfo(){
+            Console.WriteLine("Code= {0}, name={1}, Age={2}", code, name, age);
+        }
+        public override string ToString()
+        {
+            return "Code = " + code + ",Name = "+ name +", Age = "+ age ;
+        }
+        public class NegativeNumException:Exception{
+        public NegativeNumException(){}
+        public NegativeNumException(string message): base(message){}
+       }
+        public void InputInfo(){
+            Console.Write("Input Teacher name:");
+            name= Console.ReadLine();
+            Console.Write("Input Teacher code");
+            code=Console.ReadLine();
+            Console.Write("Input teacher age:");
+            string str= Console.ReadLine();;
+            try{
+                 age= int.Parse(str);
+                 if(age<=0){
+                    throw new NegativeNumException();
+                 }
+            }
+            catch(FormatException){
+                Console.WriteLine("Not input a Numver. Please reinput a number:");
+                str = Console.ReadLine();
+                age= int.Parse(str);
+            }
+            catch(NegativeNumException){
+                Console.WriteLine("Negative Age is not accepted. Please Reinput a number:");
+                str=Console.ReadLine();
+                age=int.Parse(str);
+            }
+           
 
         }
-        public override int Area()
-        {
-            Console.WriteLine(" Triangle class area:");
-            return (width*height/2);
-        }
-    }
-    class Caller{
-        public void callArea(Shape sh){
-            int a;
-            a=sh.Area();
-            Console.WriteLine("Area is {0}",a);
-        }
-    }
-    class Tester{
-        static void Main(string[] args){
-            Caller c= new Caller();
-            Retangle r= new Retangle(10,10);
-            Triangle t= new Triangle(10,5);
-            c.callArea(r);
-            c.callArea(t);
+ }
+ }
+ namespace StudentListManagement{
+    class Program{
+        static void Main(String[] args){
+            Student sv= new Student("Nguyen van", "0123456789", 23);
+
+            sv.DisplayInfo();
+            sv.InputInfo();
+
+            
+            Console.WriteLine(sv.ToString());
+
+            Lecturer gv= new Lecturer("Anh tuan", "Khoa toan-tin",33);
+            gv.DisplayInfo();
+            gv.InputInfo();
+            Console.WriteLine(gv.ToString());
+
             Console.ReadLine();
         }
     }
 }
+
+    
+
